@@ -84,17 +84,15 @@ AutoRadioButton.prototype = {
                         }
                         this.log('Current Active -> ' + currentActive);
                         
-                        var arrayLength = this.services.length;
-                        for (var j = 2; j < arrayLength; j++) {
-                            //Do something
-                            let serv = this.services[j];
+                        this.services.forEach(function (ns, j) {
+                            if (j < 2) return; //
+                            
                             if (j == currentActive) {
                                 serv.getCharacteristic(Characteristic.On).setValue(true, undefined, funcContext);
                             } else {
                                 serv.getCharacteristic(Characteristic.On).setValue(false, undefined, funcContext);
                             }
-
-                        }
+                        });
                         
                         switchService.getCharacteristic(Characteristic.On).setValue(false, undefined, funcContext);
                         
