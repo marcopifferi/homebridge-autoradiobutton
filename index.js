@@ -2,6 +2,7 @@
 
 var Service;
 var Characteristic;
+var currentActive = 2;
 
 module.exports = function (homebridge) {
     Service = homebridge.hap.Service;
@@ -37,7 +38,6 @@ function AutoRadioButton(log, config) {
 
 AutoRadioButton.prototype = {
     
-    var currentActive = 2;
     
     setToogleState: function(targetService, powerState, callback, context) {
         let funcContext = 'fromSetToogleState';
