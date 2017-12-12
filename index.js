@@ -84,7 +84,7 @@ AutoRadioButton.prototype = {
                         }
                         this.log('Current Active -> ' + currentActive);
                         
-                        this.services.forEach(function (ns, j) {
+                        this.services.forEach(function (serv, j) {
                             if (j < 2) return; //
                             
                             if (j == currentActive) {
