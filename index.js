@@ -87,7 +87,7 @@ AutoRadioButton.prototype = {
                         var arrayLength = this.services.length;
                         for (var j = 2; j < arrayLength; j++) {
                             //Do something
-                            serv = this.services[j];
+                            let serv = this.services[j];
                             if (j == currentActive) {
                                 serv.getCharacteristic(Characteristic.On).setValue(true, undefined, funcContext);
                             } else {
