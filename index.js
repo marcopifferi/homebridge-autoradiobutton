@@ -36,6 +36,21 @@ function Radiobutton(log, config) {
 }
 
 Radiobutton.prototype = {
+    
+    var currentActive = 2;
+    
+    setToogleState: function(targetService, powerState, callback, context) {
+        let funcContext = 'fromSetToogleState';
+        var reqUrl = '', reqBody = '';
+
+        if (context == funcContext) { // callback safety
+            if (callback) callback();
+            return;
+        }
+        
+        callback();
+
+    },
 
     setPowerState: function(targetService, powerState, callback, context) {
         let funcContext = 'fromSetPowerState';
@@ -62,12 +77,31 @@ Radiobutton.prototype = {
             case 'multiswitch':
                 this.services.forEach(function (switchService, i) {
                     if (i === 0) return; // skip informationService at index 0
-
-                    if (targetService.subtype === switchService.subtype) { // turn on
-                        switchService.getCharacteristic(Characteristic.On).setValue(true, undefined, funcContext);
-                    } else { // turn off
-                        switchService.getCharacteristic(Characteristic.On).setValue(false, undefined, funcContext);
+                    
+                    if (i == 1) {
+                        currentActive += 1;
+                        if currentActive > this.services.length {
+                            currentActive = 3;
+                        }
+                        this.services.forEach(function (switchService, i) {
+                            if (i < 2) {
+                                continue;
+                            }
+                            if (i == currentActive) {
+                                switchService.getCharacteristic(Characteristic.On).setValue(true, undefined, funcContext);
+                            } else {
+                                switchService.getCharacteristic(Characteristic.On).setValue(false, undefined, funcContext);
+                            }
+                        }
+                        
+                    } else {
+                        if (targetService.subtype === switchService.subtype) { // turn on
+                            switchService.getCharacteristic(Characteristic.On).setValue(true, undefined, funcContext);
+                        } else { // turn off
+                            switchService.getCharacteristic(Characteristic.On).setValue(false, undefined, funcContext);
+                        }
                     }
+
                 }.bind(this));
                 break;
 
@@ -107,6 +141,17 @@ Radiobutton.prototype = {
                 break;
             case 'multiswitch':
                 this.log.warn('[Multiswitch]: ' + this.name);
+                
+                let switchService = new Service.Switch("Toglers", "Toglers");
+
+                // Bind a copy of the setPowerState function that sets 'this' to the accessory and the first parameter
+                // to the particular service that it is being called for. 
+                let boundSetPowerState = this.setPowerState.bind(this, switchService);
+                switchService
+                    .getCharacteristic(Characteristic.On)
+                    .on('set', boundSetPowerState);
+
+                this.services.push(switchService);
  
                 this.multiswitch.forEach(function(switchItem, i) {
                     switch(i) {
