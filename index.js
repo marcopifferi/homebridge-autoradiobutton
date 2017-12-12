@@ -80,7 +80,7 @@ AutoRadioButton.prototype = {
                     
                     if (i == 1) {
                         currentActive += 1;
-                        if currentActive > this.services.length {
+                        if (currentActive > this.services.length) {
                             currentActive = 3;
                         }
                         this.services.forEach(function (switchService, i) {
