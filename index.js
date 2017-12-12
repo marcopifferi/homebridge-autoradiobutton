@@ -84,8 +84,8 @@ AutoRadioButton.prototype = {
                             currentActive = 3;
                         }
                         this.services.forEach(function (switchService, i) {
-                            if (i < 2) {
-                                continue;
+                            if (i  2) {
+                                return;
                             }
                             if (i == currentActive) {
                                 switchService.getCharacteristic(Characteristic.On).setValue(true, undefined, funcContext);
