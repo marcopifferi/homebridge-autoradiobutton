@@ -1,13 +1,13 @@
 {
-  "name": "homebridge-switcheroo",
+  "name": "homebridge-radiobutton",
   "version": "2.0.0",
-  "author": "Chris Zelazo",
+  "author": "Piff",
   "description": "User defined switches for http requests. Simple on/off or multiswitch radio buttons. Useful for lights, A/V systems, home automation, whatever",
   "license": "MIT",
-  "homepage": "https://github.com/chriszelazo/homebridge-switcheroo#readme",
+  "homepage": "https://github.com/marcopifferi/homebridge-radiobutton#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chriszelazo/homebridge-switcheroo.git"
+    "url": "git+https://github.com/marcopifferi/homebridge-radiobutton.git"
   },
   "keywords": [
     "homebridge-plugin",
@@ -29,6 +29,6 @@
     "request": "^2.65.0"
   },
   "bugs": {
-    "url": "https://github.com/chriszelazo/homebridge-switcheroo/issues"
+    "url": "https://github.com/marcopifferi/homebridge-radiobutton/issues"
   }
 }
