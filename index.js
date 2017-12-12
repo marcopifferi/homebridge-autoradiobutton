@@ -74,6 +74,7 @@ AutoRadioButton.prototype = {
                 break;
 
             case 'multiswitch':
+                
                 this.services.forEach(function (switchService, i) {
                     if (i === 0) return; // skip informationService at index 0
                     
@@ -92,7 +93,7 @@ AutoRadioButton.prototype = {
                             } else {
                                 serv.getCharacteristic(Characteristic.On).setValue(false, undefined, funcContext);
                             }
-                        });
+                        }.bind(this));
                         
                         switchService.getCharacteristic(Characteristic.On).setValue(false, undefined, funcContext);
                         
