@@ -78,7 +78,7 @@ AutoRadioButton.prototype = {
                 this.services.forEach(function (switchService, i) {
                     if (i === 0) return; // skip informationService at index 0
                     
-                    if (targetService.subtype === switchService.subtype  && i == 1) {
+                    if (targetService.subtype === switchService.subtype  && i === 1) {
                         currentActive += 1;
                         if (currentActive > this.services.length) {
                             currentActive = 3;
@@ -88,10 +88,9 @@ AutoRadioButton.prototype = {
                         this.services.forEach(function (serv, j) {
                             if (j < 2) return; //
                             
-                            if (j == currentActive) {
-                                serv.getCharacteristic(Characteristic.On).setValue(true, undefined, funcContext);
-                            } else {
-                                serv.getCharacteristic(Characteristic.On).setValue(false, undefined, funcContext);
+                            if (j === currentActive) {
+                                this.log('Found -> ' + serv.subtype);
+                                setPowerState(serv.subtype,true,calback,funcContext)
                             }
                         }.bind(this));
                         
