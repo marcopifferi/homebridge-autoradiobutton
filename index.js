@@ -2,28 +2,21 @@
 
 var Service;
 var Characteristic;
-var request = require('request');
 
 module.exports = function (homebridge) {
     Service = homebridge.hap.Service;
     Characteristic = homebridge.hap.Characteristic;
-    homebridge.registerAccessory('homebridge-switcheroo', 'Switcheroo', Switcheroo);
+    homebridge.registerAccessory('homebridge-radiobutton', 'RadioButton Switch', Radiobutton);
 };
 
-function Switcheroo(log, config) {
+function Radiobutton(log, config) {
     this.log = log;
 
-    this.name            = config.name             || 'Switcheroo Switch';
+    this.name            = config.name             || 'RadioButton Switch';
     this.type            = config.type;           
     
-    this.host            = config.host             || '';
-    this.httpMethod      = config.http_method      || 'GET';
-    this.username        = config.username         || '';
-    this.password        = config.password         || '';
-    this.sendImmediately = config.send_immediately || '';
-
-    this.manufacturer    = config.manufacturer     || 'Switcheroo';
-    this.model           = config.model            || 'Switcheroo';
+    this.manufacturer    = config.manufacturer     || 'Radiobutton';
+    this.model           = config.model            || 'Radiobutton';
 
     switch (this.type) {
         case 'switch':
@@ -38,28 +31,11 @@ function Switcheroo(log, config) {
             break;
 
         default:
-            throw new Error('Unknown homebridge-switcheroo switch type');
+            throw new Error('Unknown homebridge-radiobutton switch type');
     }
 }
 
-Switcheroo.prototype = {
-
-    httpRequest: function(url, body, method, username, password, sendimmediately, callback) {
-        request({
-            url: url,
-            body: body,
-            method: method,
-            rejectUnauthorized: false,
-            auth: {
-                user: username,
-                pass: password,
-                sendImmediately: sendimmediately
-            }
-        },
-        function(error, response, body) {
-            callback(error, response, body);
-        });
-    },
+Radiobutton.prototype = {
 
     setPowerState: function(targetService, powerState, callback, context) {
         let funcContext = 'fromSetPowerState';
@@ -88,7 +64,6 @@ Switcheroo.prototype = {
                     if (i === 0) return; // skip informationService at index 0
 
                     if (targetService.subtype === switchService.subtype) { // turn on
-//                         reqUrl = this.host + this.multiswitch[i-1].path;
                         switchService.getCharacteristic(Characteristic.On).setValue(true, undefined, funcContext);
                     } else { // turn off
                         switchService.getCharacteristic(Characteristic.On).setValue(false, undefined, funcContext);
@@ -97,32 +72,11 @@ Switcheroo.prototype = {
                 break;
 
             default:
-                this.log('Unknown homebridge-switcheroo type in setPowerState');
+                this.log('Unknown homebridge-Radiobutton type in setPowerState');
         }
         this.log('==> ' + targetService.subtype);
         callback();
 
-//         this.httpRequest(reqUrl, reqBody, this.httpMethod, this.username, this.password, this.sendImmediately, function(error, response, responseBody) {
-//             if (error) {
-//                 this.log.error('setPowerState failed: ' + error.message);
-//                 this.log('response: ' + response + '\nbody: ' + responseBody);
-            
-//                 callback(error);
-//             } else {
-//                 switch (this.type) {
-//                     case 'switch':
-//                         this.log.info('==> ' + (powerState ? "On" : "Off"));
-//                         break;
-//                     case 'multiswitch':
-//                         this.log('==> ' + targetService.subtype);
-//                         break;
-//                     default:
-//                         this.log.error('Unknown type in request callback');
-//                 }
-
-//                 callback();
-//             }
-//         }.bind(this));
     },
 
     identify: function (callback) {
@@ -178,7 +132,7 @@ Switcheroo.prototype = {
 
                 break;
             default:
-                this.log('Unknown homebridge-switcheroo type in getServices');
+                this.log('Unknown homebridge-Radiobutton type in getServices');
         }
         
         return this.services;
