@@ -143,16 +143,16 @@ AutoRadioButton.prototype = {
             case 'multiswitch':
                 this.log.warn('[Multiswitch]: ' + this.name);
                 
-                let switchService = new Service.Switch("Toglers", "Toglers");
+                let mainSwitch = new Service.Switch("Toglers", "Toglers");
 
                 // Bind a copy of the setPowerState function that sets 'this' to the accessory and the first parameter
                 // to the particular service that it is being called for. 
-                let boundSetPowerState = this.setPowerState.bind(this, switchService);
-                switchService
+                let boundSetPowerState = this.setPowerState.bind(this, mainSwitch);
+                mainSwitch
                     .getCharacteristic(Characteristic.On)
                     .on('set', boundSetPowerState);
 
-                this.services.push(switchService);
+                this.services.push(mainSwitch);
  
                 this.multiswitch.forEach(function(switchItem, i) {
                     switch(i) {
