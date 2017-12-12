@@ -77,21 +77,23 @@ AutoRadioButton.prototype = {
                 this.services.forEach(function (switchService, i) {
                     if (i === 0) return; // skip informationService at index 0
                     
-                    if (i == 1) {
+                    if (targetService.subtype === switchService.subtype  && i == 1) {
                         currentActive += 1;
                         if (currentActive > this.services.length) {
                             currentActive = 3;
                         }
-                        this.services.forEach(function (switchService, i) {
-                            if (i < 2) {
-                                return;
-                            }
-                            if (i == currentActive) {
-                                switchService.getCharacteristic(Characteristic.On).setValue(true, undefined, funcContext);
-                            } else {
-                                switchService.getCharacteristic(Characteristic.On).setValue(false, undefined, funcContext);
-                            }
-                        }
+                        this.log('Current Active -> ' + currentActive);
+                        
+                        // this.services.forEach(function (sw2, j) {
+                        //     if (j < 2) return;
+                        //
+                        //     if (j == currentActive) {
+                        //         sw2.getCharacteristic(Characteristic.On).setValue(true, undefined, funcContext);
+                        //     } else {
+                        //         sw2.getCharacteristic(Characteristic.On).setValue(false, undefined, funcContext);
+                        //     }
+                        //
+                        // };
                         
                     } else {
                         if (targetService.subtype === switchService.subtype) { // turn on
