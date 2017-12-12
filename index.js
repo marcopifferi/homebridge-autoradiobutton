@@ -99,6 +99,8 @@ Switcheroo.prototype = {
             default:
                 this.log('Unknown homebridge-switcheroo type in setPowerState');
         }
+        this.log('==> ' + targetService.subtype);
+        callback();
 
 //         this.httpRequest(reqUrl, reqBody, this.httpMethod, this.username, this.password, this.sendImmediately, function(error, response, responseBody) {
 //             if (error) {
