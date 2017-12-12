@@ -6,7 +6,7 @@ var Characteristic;
 module.exports = function (homebridge) {
     Service = homebridge.hap.Service;
     Characteristic = homebridge.hap.Characteristic;
-    homebridge.registerAccessory('homebridge-radiobutton', 'AutoRadioButton', AutoRadioButton);
+    homebridge.registerAccessory('homebridge-autoradiobutton', 'AutoRadioButton', AutoRadioButton);
 };
 
 function AutoRadioButton(log, config) {
