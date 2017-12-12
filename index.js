@@ -38,7 +38,6 @@ function AutoRadioButton(log, config) {
 
 AutoRadioButton.prototype = {
     
-    
     setToogleState: function(targetService, powerState, callback, context) {
         let funcContext = 'fromSetToogleState';
         var reqUrl = '', reqBody = '';
@@ -84,7 +83,7 @@ AutoRadioButton.prototype = {
                             currentActive = 3;
                         }
                         this.services.forEach(function (switchService, i) {
-                            if (i  2) {
+                            if (i < 2) {
                                 return;
                             }
                             if (i == currentActive) {
