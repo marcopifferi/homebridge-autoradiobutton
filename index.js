@@ -88,7 +88,7 @@ Switcheroo.prototype = {
                     if (i === 0) return; // skip informationService at index 0
 
                     if (targetService.subtype === switchService.subtype) { // turn on
-                        reqUrl = this.host + this.multiswitch[i-1].path;
+//                         reqUrl = this.host + this.multiswitch[i-1].path;
                         switchService.getCharacteristic(Characteristic.On).setValue(true, undefined, funcContext);
                     } else { // turn off
                         switchService.getCharacteristic(Characteristic.On).setValue(false, undefined, funcContext);
@@ -100,27 +100,27 @@ Switcheroo.prototype = {
                 this.log('Unknown homebridge-switcheroo type in setPowerState');
         }
 
-        this.httpRequest(reqUrl, reqBody, this.httpMethod, this.username, this.password, this.sendImmediately, function(error, response, responseBody) {
-            if (error) {
-                this.log.error('setPowerState failed: ' + error.message);
-                this.log('response: ' + response + '\nbody: ' + responseBody);
+//         this.httpRequest(reqUrl, reqBody, this.httpMethod, this.username, this.password, this.sendImmediately, function(error, response, responseBody) {
+//             if (error) {
+//                 this.log.error('setPowerState failed: ' + error.message);
+//                 this.log('response: ' + response + '\nbody: ' + responseBody);
             
-                callback(error);
-            } else {
-                switch (this.type) {
-                    case 'switch':
-                        this.log.info('==> ' + (powerState ? "On" : "Off"));
-                        break;
-                    case 'multiswitch':
-                        this.log('==> ' + targetService.subtype);
-                        break;
-                    default:
-                        this.log.error('Unknown type in request callback');
-                }
+//                 callback(error);
+//             } else {
+//                 switch (this.type) {
+//                     case 'switch':
+//                         this.log.info('==> ' + (powerState ? "On" : "Off"));
+//                         break;
+//                     case 'multiswitch':
+//                         this.log('==> ' + targetService.subtype);
+//                         break;
+//                     default:
+//                         this.log.error('Unknown type in request callback');
+//                 }
 
-                callback();
-            }
-        }.bind(this));
+//                 callback();
+//             }
+//         }.bind(this));
     },
 
     identify: function (callback) {
