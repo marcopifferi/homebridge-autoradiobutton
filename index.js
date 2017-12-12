@@ -6,10 +6,10 @@ var Characteristic;
 module.exports = function (homebridge) {
     Service = homebridge.hap.Service;
     Characteristic = homebridge.hap.Characteristic;
-    homebridge.registerAccessory('homebridge-radiobutton', 'AutoRadioButton', Radiobutton);
+    homebridge.registerAccessory('homebridge-radiobutton', 'AutoRadioButton', AutoRadioButton);
 };
 
-function Radiobutton(log, config) {
+function AutoRadioButton(log, config) {
     this.log = log;
 
     this.name            = config.name             || 'RadioButton';
@@ -35,7 +35,7 @@ function Radiobutton(log, config) {
     }
 }
 
-Radiobutton.prototype = {
+AutoRadioButton.prototype = {
     
     var currentActive = 2;
     
