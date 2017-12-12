@@ -6,13 +6,13 @@ var Characteristic;
 module.exports = function (homebridge) {
     Service = homebridge.hap.Service;
     Characteristic = homebridge.hap.Characteristic;
-    homebridge.registerAccessory('homebridge-radiobutton', 'RadioButton', Radiobutton);
+    homebridge.registerAccessory('homebridge-radiobutton', 'AutoRadioButton', Radiobutton);
 };
 
 function Radiobutton(log, config) {
     this.log = log;
 
-    this.name            = config.name             || 'RadioButton Switch';
+    this.name            = config.name             || 'RadioButton';
     this.type            = config.type;           
     
     this.manufacturer    = config.manufacturer     || 'Radiobutton';
